@@ -1,0 +1,739 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Apply Inter font globally */
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* CSS Variables - Light Theme (Defaults) */
+        :root {
+            --primary-color: #4f46e5; /* Indigo */
+            --secondary-color: #6366f1; /* Lighter Indigo */
+            --accent-color: #ec4899; /* Pink */
+            --text-color: #1f2937; /* Dark Gray */
+            --text-muted-color: #6b7280; /* Medium Gray */
+            --bg-color: #f9fafb; /* Very Light Gray */
+            --card-bg: #ffffff; /* White */
+            --border-color: #e5e7eb; /* Light Gray */
+            --chat-user-bg: #e0e7ff; /* Light Indigo */
+            --chat-assistant-bg: #f3f4f6; /* Lighter Gray */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease-in-out;
+            --border-radius: 0.5rem; /* 8px */
+            --border-radius-lg: 0.75rem; /* 12px */
+        }
+
+        /* Dark Mode Styles - Overriding Variables */
+        body.dark-mode {
+            --primary-color: #6366f1; /* Lighter Indigo */
+            --secondary-color: #818cf8; /* Even Lighter Indigo */
+            --accent-color: #f472b6; /* Lighter Pink */
+            --text-color: #e5e7eb; /* Light Gray */
+            --text-muted-color: #9ca3af; /* Medium Gray */
+            --bg-color: #111827; /* Very Dark Blue/Gray */
+            --card-bg: #1f2937; /* Dark Gray */
+            --border-color: #374151; /* Gray */
+            --chat-user-bg: #3730a3; /* Dark Indigo */
+            --chat-assistant-bg: #374151; /* Gray */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color var(--transition), color var(--transition);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: var(--card-bg); /* Use card background for navbar in dark mode */
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition), border-color var(--transition);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700; /* Bolder */
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted-color); /* Muted color for links */
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color); /* Highlight color on hover/active */
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-muted-color); /* Muted color */
+            cursor: pointer;
+            font-size: 1.3rem; /* Slightly larger */
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        #theme-toggle:hover {
+            color: var(--text-color);
+            background-color: rgba(128, 128, 128, 0.1); /* Subtle hover background */
+        }
+
+
+        /* Common Section Styles */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .home-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem; /* Larger */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color); /* Use main text color */
+            line-height: 1.2;
+        }
+        .hero h1 span { /* Optional: Highlight part of the title */
+             color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem; /* More space */
+            color: var(--text-muted-color);
+            max-width: 600px; /* Constrain width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color); /* Use primary color */
+            color: white;
+            padding: 0.9rem 1.8rem; /* Slightly larger padding */
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600; /* Bolder */
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color); /* Use secondary on hover */
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid; /* Use grid for better alignment */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-lg); /* Larger radius */
+            padding: 2.5rem; /* More padding */
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--border-color); /* Subtle border */
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color); /* Highlight border on hover */
+        }
+
+        .feature-card i {
+            font-size: 2.8rem; /* Larger icon */
+            color: var(--primary-color);
+            margin-bottom: 1.5rem; /* More space */
+            display: inline-block; /* Needed for potential transforms */
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-color); /* Use text color */
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .feature-card p {
+            color: var(--text-muted-color);
+            font-size: 0.95rem;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .tech-stack h2 {
+            margin-bottom: 2rem; /* More space */
+            color: var(--text-color);
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .tech-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem; /* More gap */
+        }
+
+        .tech-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem; /* More gap */
+            transition: var(--transition);
+        }
+         .tech-icon:hover {
+             transform: scale(1.1); /* Add subtle hover effect */
+         }
+
+        .tech-icon i {
+            font-size: 2.5rem; /* Larger icons */
+            color: var(--text-muted-color);
+            transition: var(--transition);
+        }
+        .tech-icon:hover i {
+            color: var(--primary-color); /* Highlight icon on hover */
+        }
+        .tech-icon span {
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+            font-weight: 500;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 150px); /* Adjust based on nav/footer height */
+            padding: 2rem 1rem; /* Padding for smaller screens */
+        }
+
+        .chat-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg); /* More prominent shadow */
+            width: 100%;
+            max-width: 800px;
+            height: 70vh; /* Use viewport height */
+            max-height: 700px; /* Max height */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .chat-header {
+            padding: 1rem 1.5rem; /* More padding */
+            background-color: var(--card-bg); /* Match card background */
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .chat-header h2 {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .model-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .model-selector label {
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+            font-weight: 500;
+        }
+
+        #model-select {
+            padding: 0.4rem 0.8rem; /* Adjust padding */
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-color); /* Use background color */
+            color: var(--text-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        #model-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb, 79 70 229), 0.3); /* Focus ring */
+        }
+        /* Add RGB version of primary color for focus ring */
+        body { --primary-color-rgb: 79, 70, 229; }
+        body.dark-mode { --primary-color-rgb: 99, 102, 241; }
+
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem; /* More padding */
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            /* Custom scrollbar (optional) */
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) var(--card-bg);
+        }
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--card-bg);
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            border: 2px solid var(--card-bg);
+        }
+
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1.2rem; /* Adjust padding */
+            border-radius: var(--border-radius-lg); /* Match container radius */
+            line-height: 1.5;
+            word-wrap: break-word; /* Ensure long words break */
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--chat-user-bg);
+            color: #ffffff; /* White text on dark user bg */
+            border-bottom-right-radius: 0.25rem; /* Slightly different corner */
+        }
+
+        .assistant-message {
+            align-self: flex-start;
+            background-color: var(--chat-assistant-bg);
+            color: var(--text-color);
+            border-bottom-left-radius: 0.25rem; /* Slightly different corner */
+        }
+
+        .system-message {
+            align-self: center;
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            max-width: 90%;
+        }
+
+        .message-content {
+            font-size: 0.95rem; /* Slightly smaller message font */
+        }
+
+        /* Code block styling */
+        .message-content pre {
+            background-color: rgba(0, 0, 0, 0.2); /* Darker background for code */
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 0.75rem 0;
+            font-size: 0.85rem; /* Smaller font for code */
+            border: 1px solid var(--border-color);
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) rgba(0, 0, 0, 0.2);
+        }
+        .message-content pre::-webkit-scrollbar { height: 6px; }
+        .message-content pre::-webkit-scrollbar-thumb { background-color: var(--secondary-color); border-radius: 3px; }
+
+        .message-content code:not(pre code) { /* Inline code */
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: var(--accent-color); /* Use accent color for inline code */
+        }
+        body.dark-mode .message-content pre {
+             background-color: rgba(0, 0, 0, 0.3); /* Even darker in dark mode */
+             border: 1px solid #4b5563; /* Slightly darker border */
+        }
+         body.dark-mode .message-content code {
+              color: var(--accent-color);
+         }
+
+        /* Typing indicator */
+        .typing-indicator {
+            padding: 0.5rem 1rem;
+            display: flex; /* Align dots nicely */
+            align-items: center;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 5px; /* Slightly more gap */
+        }
+
+        .typing-dots span {
+            width: 9px; /* Slightly larger dots */
+            height: 9px;
+            background-color: var(--text-muted-color); /* Use muted color */
+            border-radius: 50%;
+            display: inline-block;
+            opacity: 0.7;
+            animation: typing-dot 1.4s infinite ease-in-out; /* Smoother animation */
+        }
+
+        /* Animation delays */
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing-dot {
+            0%, 60%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+            30% { transform: translateY(-5px) scale(1.1); opacity: 1; } /* More pronounced bounce */
+        }
+
+        .chat-input {
+            padding: 1rem 1.5rem; /* More padding */
+            display: flex;
+            gap: 0.8rem; /* More gap */
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg); /* Match chat background */
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 0.8rem 1rem; /* Adjust padding */
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            resize: none;
+            font-size: 1rem;
+            background-color: var(--bg-color); /* Use main bg for input */
+            color: var(--text-color);
+            transition: var(--transition);
+            min-height: 44px; /* Ensure minimum height */
+            max-height: 150px; /* Limit expansion */
+            overflow-y: auto; /* Add scroll if needed */
+            scrollbar-width: thin;
+        }
+
+        #user-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3); /* Focus ring */
+            background-color: var(--card-bg); /* Change bg on focus */
+        }
+
+        #send-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0 1.2rem; /* Adjust padding */
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem; /* Icon size */
+        }
+
+        #send-button:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05); /* Slight scale on hover */
+        }
+        #send-button:disabled { /* Style for disabled state */
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+
+        /* Admin Panel Styles - Applying Dark Theme */
+        .admin-page {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 2rem auto; /* Center admin page */
+        }
+
+        .admin-page h1 {
+            margin-bottom: 2rem;
+            color: var(--text-color); /* Use text color */
+            font-size: 2rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .admin-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem; /* More padding */
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-section h2 {
+            margin-bottom: 1.5rem; /* More space */
+            color: var(--primary-color); /* Use primary color for headings */
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Style form elements consistently */
+        .admin-section select,
+        .admin-section input[type="text"],
+        .admin-section input[type="number"],
+        .admin-section textarea {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-right: 0.5rem;
+            background-color: var(--bg-color); /* Use main bg */
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            width: auto; /* Allow natural width or set specific widths */
+            min-width: 150px; /* Minimum width */
+        }
+        .admin-section input[type="text"],
+        .admin-section textarea {
+             width: 100%; /* Make text inputs wider */
+             max-width: 400px;
+        }
+
+        .admin-section select:focus,
+        .admin-section input:focus,
+        .admin-section textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
+            background-color: var(--card-bg);
+        }
+
+        .admin-section button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.6rem 1.2rem; /* Consistent padding */
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .admin-section button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+        .admin-section button.delete-button { /* Specific style for delete */
+            background-color: var(--accent-color);
+        }
+        .admin-section button.delete-button:hover {
+            background-color: #d94682; /* Darker pink */
+        }
+
+
+        /* Lists in Admin Panel */
+        #rules-list, #active-chats {
+            list-style: none;
+            margin: 1.5rem 0; /* More margin */
+            padding: 0;
+        }
+
+        #rules-list li, #active-chats li {
+            margin-bottom: 0.8rem; /* More space */
+            padding: 1rem; /* More padding */
+            background-color: var(--bg-color); /* Use main bg */
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        #rules-list li:hover, #active-chats li:hover {
+            background-color: var(--card-bg); /* Change bg on hover */
+            border-color: var(--secondary-color);
+        }
+
+        #active-chats a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        #active-chats a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        /* Admin Chat History Viewer */
+        .admin-chat-history {
+            max-height: 450px; /* Increased height */
+            overflow-y: auto;
+            padding: 1.5rem; /* More padding */
+            background-color: var(--bg-color); /* Use main bg */
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-color);
+            /* Custom scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) var(--bg-color);
+        }
+        .admin-chat-history::-webkit-scrollbar { width: 8px; }
+        .admin-chat-history::-webkit-scrollbar-track { background: var(--bg-color); }
+        .admin-chat-history::-webkit-scrollbar-thumb { background-color: var(--secondary-color); border-radius: 10px; border: 2px solid var(--bg-color); }
+
+
+        .admin-message {
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .admin-message.user-message {
+            background-color: var(--chat-user-bg);
+            color: white; /* Ensure contrast */
+            margin-left: 20%; /* Indent user messages */
+        }
+
+        .admin-message.assistant-message {
+            background-color: var(--chat-assistant-bg);
+            color: var(--text-color);
+            margin-right: 20%; /* Indent assistant messages */
+        }
+        .admin-message strong { /* Add role indicator */
+            font-weight: 600;
+            margin-right: 0.5em;
+            display: block; /* Put role on its own line */
+            margin-bottom: 0.25em;
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--card-bg); /* Match navbar */
+            color: var(--text-muted-color);
+            text-align: center;
+            padding: 1.5rem; /* More padding */
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        body.dark-mode .footer {
+             background-color: #111827; /* Match dark bg */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 1rem; /* Adjust padding */
+            }
+            .navbar {
+                padding: 1rem;
+            }
+            .nav-links {
+                gap: 1rem; /* Reduce gap */
+            }
+            .hero h1 {
+                font-size: 2.2rem; /* Adjust font size */
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .features {
+                grid-template-columns: 1fr; /* Stack features */
+            }
+            .chat-container {
+                height: calc(100vh - 120px); /* Adjust height for mobile */
+                max-height: none;
+                border-radius: 0; /* Full width on mobile */
+                border-left: none;
+                border-right: none;
+            }
+            .chat-messages {
+                padding: 1rem;
+            }
+            .message {
+                max-width: 90%;
+                padding: 0.7rem 1rem;
+            }
+            .chat-input {
+                padding: 0.8rem 1rem;
+            }
+            .admin-page {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            .admin-section {
+                padding: 1.5rem;
+            }
+            .admin-section h2 {
+                font-size: 1.3rem;
+            }
+            .admin-message {
+                 margin-left: 5%;
+                 margin-right: 5%;
+            }
+        }

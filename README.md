@@ -1,2 +1,10 @@
-# vetra
-Smart chatbot system built for handling employee queries in government departments using rule-based logic and AI.
+---
+title: Vetra
+emoji: 🚀
+colorFrom: yellow
+colorTo: red
+sdk: docker
+pinned: false
+---
+
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
